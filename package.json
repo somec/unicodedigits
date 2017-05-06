@@ -4,14 +4,27 @@
   "private": false,
   "description": "Translate Unicode digits",
   "main": "index.js",
-  "author": {
-    "name": "some",
-    "email": "some@domain.name"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/somec/unicodedigits.git"
   },
-  "dependencies": {
+  "author": "some <some@domain.name>",
+  "bugs": {
+    "url": "https://github.com/somec/unicodedigits/issues"
   },
-  "engines": {
-    "node": ">= 0.8.0"
+  "keywords": [
+    "unicode",
+    "digits"
+  ],
+  "dependencies": {},
+  "licence": "MIT",
+  "homepage": "https://github.com/somec/unicodedigits#readme",
+  "directories": {
+    "example": "example",
+    "test": "test"
   },
-  "_id": "some+unicodedigits@0.1.0"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT"
 }

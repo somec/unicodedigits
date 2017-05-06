@@ -4,7 +4,7 @@ nodejs module for translating unicode digits
 ## Install
 
 ```sh
-$ npm install unicode-nd
+$ npm install unicodedigits
 ```
 
 ## Intro & Examples
@@ -12,7 +12,7 @@ $ npm install unicode-nd
 ### Simple example
 
 ```js
-var nd = require('unicode-nd');
+var nd = require('unicodedigits');
 
 var digits = '0 1 2 3 4 5 6 7 8 9';
 
@@ -24,6 +24,28 @@ nd.classes.forEach(
 
 ```
 
+```js
+var nd = require('unicodedigits');
+
+var list = [
+  "0123456789",
+  "٠١٢٣٤٥٦٧٨٩",
+  "۰۱۲۳۴۵۶۷۸۹",
+  "߀߁߂߃߄߅߆߇߈߉",
+  "०१२३४५६७८९",
+  "০১২৩৪৫৬৭৮৯",
+  "੦੧੨੩੪੫੬੭੮੯",
+  "૦૧૨૩૪૫૬૭૮૯",
+  "୦୧୨୩୪୫୬୭୮୯",
+  "௦௧௨௩௪௫௬௭௮௯"
+];
+
+list.forEach(
+  function (item) {
+    console.log( nd.replaceDigits( item, 'ASCII' ) );
+  }
+);
+```
 
 ## Supported Unicode classes
 
@@ -95,4 +117,6 @@ If at all possible when you open an issue please provide
 - smallest possible snippet of code to reproduce the problem
 
 ## License
+
+MIT
 
