@@ -119,12 +119,12 @@ If at all possible when you open an issue please provide
 ## History
 
 2012-August-29
-  user1585033 asked a question on Stackoverflow and
+  user1585033 asked a question on [StackOverflow](http://stackoverflow.com/questions/12171113/regular-expression-for-changing-other-languages-numbers-to-english-numbers) and
   I answered with both a limited function to solve the problem,
   and with a general function.
 
 2017-May-05
-  Flavio Corpa found the function on Stackoverflow and
+  [Flavio Corpa](https://github.com/kutyel) found the function on StackOverflow and
   suggested that I should publish that as a module for node.js.
   I thought that was a good idea, so I did.
 
