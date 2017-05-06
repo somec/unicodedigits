@@ -1,0 +1,65 @@
+#!/usr/bin/env node
+"use strict"
+
+//------------------------------------------------------------------------------
+var unicode = require('../lib/unicode')
+//------------------------------------------------------------------------------
+  function leadingZero(input,width,base) {
+    var output = input.toString(base||10);
+    while (output.length < width)
+      output = '0' + output;
+    return output;
+  }
+//------------------------------------------------------------------------------
+  // Returns an escaped regex unicode point
+  function reUnicode(input) {
+    return "\\u" + leadingZero(input,4,16);
+  }
+//------------------------------------------------------------------------------
+  // Returns an escaped regex unicode range
+  function reRange(first, last) {
+    var output;
+    if ( first < 0x10000) {
+      output = '['
+        + reUnicode(first)
+        + '-'
+        + reUnicode(last)
+        + ']';
+    } else {
+      var
+        mpoint  = first - 0x10000,
+        high    = 0xD800 + (mpoint >> 10),
+        low     = 0xDC00 + (mpoint & 0x3FF);
+        output = reUnicode(high)
+          +'['
+          + reUnicode(low)
+          + '-'
+          + reUnicode(low + (last-first))
+          + ']';
+    }
+    return output;
+  }
+//------------------------------------------------------------------------------
+  function makeRegexDigits(reExtended) {
+    return unicode.nd.reduce(
+      function (output, item) {
+        var group =
+          (item.zero >= 0x1D7CE && item.zero <= 0x1D7FF) ? 2 :
+          (item.zero & 15) === 0 ? 0 :
+          (item.zero & 6) === 6 ? 1 :
+          null;
+        output[group].push( reRange(item.zero, item.zero + 9 ) );
+        return output;
+      },
+      [ [], [], [] ]
+    )
+    .map(
+      function (input) {
+        return '(' + input.join('|') + ')';
+      }
+    )
+    .join('|')
+  }
+//------------------------------------------------------------------------------
+
+console.log( makeRegexDigits(false) );
