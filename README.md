@@ -4,7 +4,7 @@ nodejs module for translating unicode digits
 ## Install
 
 ```sh
-$ npm install unicodedigits
+$ npm install unicodedigits --save
 ```
 
 ## Intro & Examples
@@ -115,6 +115,19 @@ If at all possible when you open an issue please provide
 - version of node
 - version of postgres
 - smallest possible snippet of code to reproduce the problem
+
+## History
+
+2012-August-29
+  user1585033 asked a question on Stackoverflow and
+  I answered with both a limited function to solve the problem,
+  and with a general function.
+
+2017-May-05
+  Flavio Corpa found the function on Stackoverflow and
+  suggested that I should publish that as a module for node.js.
+  I thought that was a good idea, so I did.
+
 
 ## License
 
