@@ -1,6 +1,6 @@
 {
   "name": "unicodedigits",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "description": "Translate Unicode digits",
   "main": "index.js",
