@@ -1,0 +1,43 @@
+#!/usr/bin/env node
+// Makes a file with all numbers
+
+"use strict"
+
+var unicode = require('../lib/unicode');
+var util = require('./util');
+
+function mkDigit(input) {
+  if (input < 0x10000)
+    return String.fromCharCode(input);
+
+  var
+    mpoint  = input - 0x10000,
+    high    = 0xD800 + (mpoint >> 10),
+    low     = 0xDC00 + (mpoint & 0x3FF);
+  return String.fromCharCode(high) + String.fromCharCode(low);
+}
+
+function makeTestFile() {
+  return unicode.nd.map(
+    function (item) {
+      var digits = [];
+      for (var idx=0; idx < 10; idx+=1) {
+        digits.push( unicode.fromCodePoint( item.zero + idx) );
+      }
+      var output = ''
+        + '[' 
+          + util.leadingZero(item.zero,5,16)
+          + '-'
+          + util.leadingZero(item.zero + 9,5,16)
+        + ']'
+        + ' '
+        + '"' + digits.join(' ') + '"'
+        + ' '
+        + '"' + item.name + '"'
+      return output;
+    }
+  )
+  .join('\n');
+}
+
+console.log(makeTestFile());

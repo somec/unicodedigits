@@ -1,0 +1,84 @@
+#!/usr/bin/env node
+// Check numbers
+
+"use strict"
+var fs = require('fs');
+
+var unicode = require('../lib/unicode');
+var util = require('./util');
+var lib = require('../index');
+
+var unittest = {
+  stat : {
+    total : 0,
+    fail : 0,
+    pass : 0
+  },
+  pass:
+    function (name) {
+      console.log('[PASS] ', name);
+      this.stat.pass+=1;
+    },
+  fail:
+    function (name) {
+      console.log('[FAIL] ', name);
+      this.stat.fail+=1;
+    },
+  status:
+    function() {
+      console.log(
+        'Tests passed:%d, failed:%d',
+        this.stat.pass,
+        this.stat.fail
+      );
+      return this.stat.fail == 0;
+    }
+}
+
+function makeTest() {
+  unicode.nd.forEach(
+    function(dstItem) {
+      var expected = [];
+      for (var idx=0; idx < 10; idx+=1) {
+        expected.push( unicode.fromCodePoint( dstItem.zero + idx) );
+      }
+      expected = expected.join(' ');
+
+      unicode.nd.forEach(
+        function (item) {
+          var digits = [];
+
+          for (var idx=0; idx < 10; idx+=1) {
+            digits.push( unicode.fromCodePoint( item.zero + idx) );
+          }
+          digits = digits.join(' ');
+
+          var converted = lib.replaceDigits(digits, dstItem.name );
+
+          var name ='Convert to ' + dstItem.name + ' from ' + item.name + ' ' + digits;
+
+          if ( converted === expected ) {
+            unittest.pass(name);
+          } else {
+            unittest.fail(name);
+          }
+        }
+      )
+
+    }
+  );
+}
+
+function testFile(file) {
+  var raw = fs.readFileSync(file, 'utf8');
+  var converted = lib.replaceDigits(raw, 'ASCII');
+  unittest[
+    /^[0-9a-zA-Z\[\]"\n -]+$/.test(converted) ? 'pass' : 'fail'
+  ]('File "' + file+ '"');
+  
+  //console.log(converted);
+}
+
+makeTest();
+testFile('unicode_numbers.txt');
+unittest.status();

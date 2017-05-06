@@ -1,0 +1,17 @@
+{
+  "name": "unicodedigits",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Translate Unicode digits",
+  "main": "index.js",
+  "author": {
+    "name": "some",
+    "email": "some@domain.name"
+  },
+  "dependencies": {
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "_id": "some+unicodedigits@0.1.0"
+}
